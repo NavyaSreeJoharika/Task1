@@ -47,6 +47,19 @@ func CreatePersonEndpoint(w http.ResponseWriter, req *http.Request) {
 
 }
 
+func UpdatePersonEndpoint(w http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	for i, person := range people {
+		if person.ID == params["id"] {
+			_ = json.NewDecoder(req.Body).Decode(&person)
+			people[i] = person
+			json.NewEncoder(w).Encode(person)
+			return
+		}
+	}
+	http.Error(w, "Person not found", http.StatusNotFound)
+}
+
 func DeletePersonEndpoint(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	for index, item := range people {
@@ -67,6 +80,7 @@ func main() {
 	router.HandleFunc("/people", GetPeopleEndpoint).Methods("GET")
 	router.HandleFunc("/people/{id}", GetPersonEndpoint).Methods("GET")
 	router.HandleFunc("/people/{id}", CreatePersonEndpoint).Methods("POST")
+	router.HandleFunc("/items/{id}", UpdatePersonEndpoint).Methods("PUT")
 	router.HandleFunc("/people/{id}", DeletePersonEndpoint).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":2000", router))
 }
