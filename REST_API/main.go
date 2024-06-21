@@ -12,7 +12,7 @@ type Person struct {
 	ID        string   `json:"id,omitempty"`
 	Firstname string   `json:"firstname,omitempty"`
 	Lastname  string   `json:"lastname,omitempty"`
-	Address   *Address `json:"assress,omitempty"`
+	Address   *Address `json:"address,omitempty"`
 }
 
 type Address struct {
@@ -74,7 +74,7 @@ func DeletePersonEndpoint(w http.ResponseWriter, req *http.Request) {
 func main() {
 	router := mux.NewRouter()
 
-	people = append(people, Person{ID: "1", Firstname: "Nick", Lastname: "Roy", Address: &Address{City: "India", State: "Tamil Nadu"}})
+	people = append(people, Person{ID: "1", Firstname: "Nick", Lastname: "Roy", Address: &Address{City: "Guulgo", State: "Tamil Nadu"}})
 	people = append(people, Person{ID: "2", Firstname: "Maria", Lastname: "Roy"})
 
 	router.HandleFunc("/people", GetPeopleEndpoint).Methods("GET")
