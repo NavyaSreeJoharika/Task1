@@ -83,4 +83,5 @@ func main() {
 	router.HandleFunc("/people/{id}", UpdatePersonEndpoint).Methods("PUT")
 	router.HandleFunc("/people/{id}", DeletePersonEndpoint).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":2000", router))
+	log.Fatalln(http.ListenAndServe(":2000", router))
 }
